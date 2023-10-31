@@ -1,14 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Counter from '/Users/malamadre/dev/tp_react_2/src/exe1'
+import React, { useState, useCallback } from "react";
+import Counter from "./exe4";
+
+const App: React.FC = () => {
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+
+  const incrementGlobal = useCallback(() => {
+    setCount1(count1 + 1);
+    setCount2(count2 + 1);
+  }, [count1, count2]);
 
   return (
-    <>
-     <Counter />
-    </>
-  )
-}
+    <div>
+      <h1>Compteurs</h1>
+      <Counter initialValue={count1} onIncrementGlobal={incrementGlobal} />
+      <Counter initialValue={count2} onIncrementGlobal={incrementGlobal} />
+    </div>
+  );
+};
 
-export default App
+export default App;
