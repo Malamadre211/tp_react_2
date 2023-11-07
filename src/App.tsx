@@ -1,22 +1,24 @@
-import React, { useState, useCallback } from "react";
-import Counter from "./exe4";
+import { useCallback, useState } from 'react'
+import CompteurExo5 from './exe5'
 
-const App: React.FC = () => {
-  const [count1, setCount1] = useState(0);
-  const [count2, setCount2] = useState(0);
+function App() {
+  
+  const [count, setCount] = useState(0)
 
-  const incrementGlobal = useCallback(() => {
-    setCount1(count1 + 1);
-    setCount2(count2 + 1);
-  }, [count1, count2]);
+  const handleIncrementCompteur = useCallback(
+    () => { setCount(count + 1) },
+    [count]
+  );
 
   return (
-    <div>
-      <h1>Compteurs</h1>
-      <Counter initialValue={count1} onIncrementGlobal={incrementGlobal} />
-      <Counter initialValue={count2} onIncrementGlobal={incrementGlobal} />
-    </div>
-  );
-};
+    <>
+<div className="exo5">
+  <CompteurExo5 onIncrement={handleIncrementCompteur} onDecrement={handleIncrementCompteur} value={count}/>
+  <CompteurExo5 onIncrement={handleIncrementCompteur} onDecrement={handleIncrementCompteur} value={count}/>
+  <button onClick={handleIncrementCompteur}>+</button>
+</div>
+</>
+  )
+}
 
 export default App;

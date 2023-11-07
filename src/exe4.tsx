@@ -1,33 +1,35 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react"
 
-interface CounterProps {
-  initialValue: number;
-  onIncrementGlobal: (value:number) => void;
+export default function CompteurExoQuatre(props: { value: number }){
+    const [cpt, setCpt] = useState(0)
+
+    const counterValue = useMemo(() => {
+        return props.value + cpt
+    }, [props.value, cpt])
+
+    const handleIncrement = useCallback(() => {
+        setCpt(cpt + 1)
+    }, [cpt])
+
+    const handleDecrement = useCallback(() => {
+        setCpt(cpt - 1)
+    }, [cpt])
+
+    return (
+        <div className="compteur">
+            <div className="compteur-value">
+                {counterValue}
+            </div>
+            <div className="compteur-actions">
+                <button 
+                    className="compteur-actions-increment"
+                    onClick={handleDecrement}
+                >-</button>
+                <button 
+                    className="compteur-actions-increment"
+                    onClick={handleIncrement}
+                >+</button>
+            </div>
+        </div>
+    )
 }
-
-const Counter: React.FC<CounterProps> = ({ initialValue, onIncrementGlobal }) => {
-  const [count, setCount] = useState(initialValue);
-
-  const increment = () => {
-    setCount(count + 1);
-  };
-
-  const decrement = () => {
-    setCount(count - 1);
-  };
-
-  const incrementGlobal = () => {
-    onIncrementGlobal();
-  };
-
-  return (
-    <div>
-      <p>Compteur : {count}</p>
-      <button onClick={increment}>+</button>
-      <button onClick={decrement}>-</button>
-      <button onClick={incrementGlobal}>Ajouter aux deux compteurs</button>
-    </div>
-  );
-};
-
-export default Counter;
